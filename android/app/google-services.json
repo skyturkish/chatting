@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333758703047",
+    "project_id": "firebase-group-sky-notes",
+    "storage_bucket": "firebase-group-sky-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333758703047:android:7146bab7c0e143f228a5e2",
+        "android_client_info": {
+          "package_name": "sky.sky.groupnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333758703047-9ulbiepscsa9tgjhshmogkkllse7jih6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRdBS4ROb4u4Ql3MGnDoYTbuWcDUrGiJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333758703047-9ulbiepscsa9tgjhshmogkkllse7jih6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
