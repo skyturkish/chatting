@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 
 Future<T?> showGenericDialog<T>({
-  // T? binevi dynmic demek her şeyi alabililir diyoruz
+  // T? binevi generic demek her şeyi alabililir diyoruz
   // böylece bir şeye bağlı olmuyor yaptığımız şey
-
   required BuildContext context,
   required String title,
   required String content,

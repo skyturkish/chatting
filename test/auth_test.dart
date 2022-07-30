@@ -109,6 +109,7 @@ class MockAuthProvider implements AuthProvider {
     if (email == 'nofound@gmail.com') throw UserNotFoundAuthException();
     if (password == 'nopassword') throw WrongPasswordAuthExpection();
     const user = AuthUser(
+      id: 'my_id',
       isEmailVerified: false,
       email: 'nofound@gmail.com',
     );
@@ -130,6 +131,7 @@ class MockAuthProvider implements AuthProvider {
     final user = _user;
     if (user == null) throw UserNotFoundAuthException();
     const newUser = AuthUser(
+      id: 'my_id',
       isEmailVerified: true,
       email: 'nofound@gmail.com', // emailleri ekledikten sonra hata veriyor
     );
