@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart' show immutable;
 
 typedef CloseLoadingScreen = bool Function();
