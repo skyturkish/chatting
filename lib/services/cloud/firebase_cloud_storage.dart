@@ -5,7 +5,7 @@ import 'package:groupnotes/services/cloud/cloud_storage_exceptions.dart';
 
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes'); // burayı abstract yapıp bunu dışarıdan alabilirsin
-
+  // hakikaten alabilirim, aferin bana
   static final FirebaseCloudStorage _shared = FirebaseCloudStorage._sharedInstance();
   FirebaseCloudStorage._sharedInstance();
   factory FirebaseCloudStorage() => _shared;

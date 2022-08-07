@@ -8,9 +8,10 @@ import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/services/auth/firebase_auth_provider.dart';
 import 'package:groupnotes/views/VerifyEmailView.dart';
 import 'package:groupnotes/views/forgot_password_view.dart';
+import 'package:groupnotes/views/home/home_view.dart';
+import 'package:groupnotes/views/home/notes/create_update_note_view.dart';
+import 'package:groupnotes/views/home/notes/notes_view.dart';
 import 'package:groupnotes/views/login_view.dart';
-import 'package:groupnotes/views/notes/create_update_note_view.dart';
-import 'package:groupnotes/views/notes/notes_view.dart';
 import 'package:groupnotes/views/register_view.dart';
 
 void main() {
@@ -27,6 +28,7 @@ void main() {
       ),
       routes: {
         createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
+        personalNotes: (context) => const NotesView()
       },
     ),
   );
@@ -52,7 +54,7 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          return const NotesView();
+          return const HomeView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {

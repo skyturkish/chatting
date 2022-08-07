@@ -8,7 +8,7 @@ import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/cloud/cloud_note.dart';
 import 'package:groupnotes/services/cloud/firebase_cloud_storage.dart';
 import 'package:groupnotes/utilities/dialogs/logout_dialog.dart';
-import 'package:groupnotes/views/notes/notes_list_view.dart';
+import 'package:groupnotes/views/home/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
