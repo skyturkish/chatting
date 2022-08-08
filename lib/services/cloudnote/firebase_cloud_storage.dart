@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:groupnotes/services/cloud/cloud_note.dart';
-import 'package:groupnotes/services/cloud/cloud_storage_constants.dart';
-import 'package:groupnotes/services/cloud/cloud_storage_exceptions.dart';
+import 'package:groupnotes/core/constants/cloudFireStore/cloud_fire_store_constants.dart';
+import 'package:groupnotes/services/cloudNote/cloud_note.dart';
+import 'package:groupnotes/services/cloudNote/cloud_storage_exceptions.dart';
 
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes'); // burayı abstract yapıp bunu dışarıdan alabilirsin
@@ -23,7 +23,7 @@ class FirebaseCloudStorage {
     required String text,
   }) async {
     try {
-      await notes.doc(documentId).update({textFieldName: text});
+      await notes.doc(documentId).update({FirestoreDatabaseTextFields.textFieldText: text});
     } catch (e) {
       throw CouldNoteUpdateNoteException();
     }
@@ -36,7 +36,8 @@ class FirebaseCloudStorage {
     try {
       return await notes
           .where(
-            ownerUserIdFieldName, // user_id kısmında benim verdiğim ownerUserId kısmına eşit olan yerdeki dataları al onları benim modelime çevir ve döndür
+            FirestoreDatabaseTextFields
+                .ownerUserIdFieldName, // user_id kısmında benim verdiğim ownerUserId kısmına eşit olan yerdeki dataları al onları benim modelime çevir ve döndür
             isEqualTo: ownerUserId, //
           )
           .get()
@@ -52,8 +53,8 @@ class FirebaseCloudStorage {
 
   Future<CloudNote> createNewNote({required String ownerUserId}) async {
     final document = await notes.add({
-      ownerUserIdFieldName: ownerUserId,
-      textFieldName: '',
+      FirestoreDatabaseTextFields.ownerUserIdFieldName: ownerUserId,
+      FirestoreDatabaseTextFields.textFieldText: '',
     });
     final fetchedNote = await document.get();
     return CloudNote(

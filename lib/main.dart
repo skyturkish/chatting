@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:groupnotes/constants/routes.dart';
+import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/services/auth/firebase_auth_provider.dart';
-import 'package:groupnotes/views/VerifyEmailView.dart';
-import 'package:groupnotes/views/forgot_password_view.dart';
-import 'package:groupnotes/views/home/home_view.dart';
+import 'package:groupnotes/views/auth/forgotpassword/view/forgot_password_view.dart';
+import 'package:groupnotes/views/auth/login/view/login_view.dart';
+import 'package:groupnotes/views/auth/register/view/register_view.dart';
+import 'package:groupnotes/views/auth/verifyemail/view/VerifyEmailView.dart';
+import 'package:groupnotes/views/home/createcharacter/view/create_character_view.dart';
 import 'package:groupnotes/views/home/notes/create_update_note_view.dart';
 import 'package:groupnotes/views/home/notes/notes_view.dart';
-import 'package:groupnotes/views/login_view.dart';
-import 'package:groupnotes/views/register_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +27,8 @@ void main() {
         child: const HomePage(),
       ),
       routes: {
-        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
-        personalNotes: (context) => const NotesView()
+        NavigationConstants.createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
+        NavigationConstants.personalNotes: (context) => const NotesView()
       },
     ),
   );
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          return const HomeView();
+          return const CreateCharacterView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {

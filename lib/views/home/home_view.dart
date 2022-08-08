@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:groupnotes/constants/routes.dart';
+import 'package:groupnotes/core/constants/navigation/routes.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class HomeViewState extends State<HomeView> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(personalNotes);
+              Navigator.of(context).pushNamed(NavigationConstants.personalNotes);
             },
             child: const Text('notes'),
           ),
