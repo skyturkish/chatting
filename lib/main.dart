@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
@@ -13,6 +14,7 @@ import 'package:groupnotes/views/auth/login/view/login_view.dart';
 import 'package:groupnotes/views/auth/register/view/register_view.dart';
 import 'package:groupnotes/views/auth/verifyemail/view/VerifyEmailView.dart';
 import 'package:groupnotes/views/home/createcharacter/view/create_character_view.dart';
+import 'package:groupnotes/views/home/home_view.dart';
 import 'package:groupnotes/views/home/notes/create_update_note_view.dart';
 import 'package:groupnotes/views/home/notes/notes_view.dart';
 
@@ -30,7 +32,8 @@ void main() async {
       ),
       routes: {
         NavigationConstants.createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
-        NavigationConstants.personalNotes: (context) => const NotesView()
+        NavigationConstants.personalNotes: (context) => const NotesView(),
+        'home': (context) => const HomeView(),
       },
     ),
   );
@@ -69,7 +72,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final isBackground = state == AppLifecycleState.paused; // detached dene olmazsa
 
     if (isBackground) {
-      await AuthService.firebase().logOut();
+      if (LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID) == null) {
+        await AuthService.firebase().logOut();
+      }
     }
   }
 
@@ -89,7 +94,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         }
       },
       builder: (context, state) {
-        if (state is AuthStateLoggedIn) {
+        if (LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID) != null) {
+          return const HomeView();
+        } else if (state is AuthStateLoggedIn) {
           return const CreateCharacterView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();

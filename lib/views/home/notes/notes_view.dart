@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/constants/enums/menu_action.dart';
+import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
@@ -45,6 +46,7 @@ class _NotesViewState extends State<NotesView> {
                 case MenuAction.logout:
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
+                    LocaleManager.instance.clearAll();
                     context.read<AuthBloc>().add(
                           const AuthEventLogOut(),
                         );

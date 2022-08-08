@@ -62,6 +62,8 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
                           ownerUserId: AuthService.firebase().currentUser!.id,
                           name: _nameController.text,
                           surName: _surNameController.text);
+
+                      Navigator.pushNamed(context, 'home');
                     },
                     child: const Text('create user'),
                   ),
@@ -70,11 +72,11 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
                         setState(() {});
                       },
                       child: const Text('ad getir')),
-                  Text(LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID)),
+                  Text(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)),
                   ElevatedButton(
                       onPressed: () async {
                         CreateUserFirebaseCloudStorage()
-                            .getUser(documentId: LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID));
+                            .getUser(documentId: LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID));
                       },
                       child: const Text('users ne acaba'))
                 ],

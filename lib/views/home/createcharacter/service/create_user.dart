@@ -39,13 +39,13 @@ class CreateUserFirebaseCloudStorage {
       groupNames: fetchedUser['groupNames'] as List<dynamic>,
       gender: fetchedUser['gender'] as bool,
     );
-    LocaleManager.instance.setStringValue(PreferencesKeys.OWNERUSERID, fetchedUser.id);
+    LocaleManager.instance.setStringValue(PreferencesKeys.DOCUMENTID, fetchedUser.id);
     return user;
   }
 
   Future<UserModel?> getUser({required String documentId}) async {
     try {
-      final user = await users.doc(LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID)).get();
+      final user = await users.doc(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)).get();
       final gercekuser = UserModel.fromSnapShot(user);
       devtools.log(gercekuser.name);
       return gercekuser;
