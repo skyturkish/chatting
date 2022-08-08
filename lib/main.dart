@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
+import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
@@ -14,8 +15,8 @@ import 'package:groupnotes/views/home/createcharacter/view/create_character_view
 import 'package:groupnotes/views/home/notes/create_update_note_view.dart';
 import 'package:groupnotes/views/home/notes/notes_view.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  await _init();
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
@@ -32,6 +33,11 @@ void main() {
       },
     ),
   );
+}
+
+Future<void> _init() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocaleManager.preferencesInit();
 }
 
 class HomePage extends StatelessWidget {

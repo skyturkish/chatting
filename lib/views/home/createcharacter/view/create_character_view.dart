@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
+import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
-import 'package:groupnotes/views/home/createcharacter/model/user_model.dart';
 import 'package:groupnotes/views/home/createcharacter/service/create_user.dart';
 
 class CreateCharacterView extends StatefulWidget {
@@ -11,8 +12,6 @@ class CreateCharacterView extends StatefulWidget {
 }
 
 class CreateCharacterViewState extends State<CreateCharacterView> {
-  String isim = 'gelmedi henüz';
-  UserModel? kral;
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _surNameController;
@@ -54,8 +53,10 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
             ),
             ElevatedButton(
               onPressed: () async {
-                kral = await CreateUserFirebaseCloudStorage()
-                    .createUser(ownerUserId: AuthService.firebase().currentUser!.id, name: _nameController.text);
+                await CreateUserFirebaseCloudStorage().createUser(
+                    ownerUserId: AuthService.firebase().currentUser!.id,
+                    name: _nameController.text,
+                    surName: _surNameController.text);
               },
               child: const Text('create user'),
             ),
@@ -64,7 +65,7 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
                   setState(() {});
                 },
                 child: const Text('ad getir')),
-            Text(kral?.name ?? ' girilmedi')
+            Text(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)),
           ],
         ),
       ),
