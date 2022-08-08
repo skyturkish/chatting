@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
+import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
@@ -40,8 +41,37 @@ Future<void> _init() async {
   await LocaleManager.preferencesInit();
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.detached || state == AppLifecycleState.inactive) return;
+
+    final isBackground = state == AppLifecycleState.paused; // detached dene olmazsa
+
+    if (isBackground) {
+      await AuthService.firebase().logOut();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

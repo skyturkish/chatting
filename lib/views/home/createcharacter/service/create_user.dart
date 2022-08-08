@@ -4,8 +4,10 @@ import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/services/cloudnote/cloud_storage_exceptions.dart';
 import 'package:groupnotes/views/home/createcharacter/model/user_model.dart';
+import 'dart:developer' as devtools show log;
 
 class CreateUserFirebaseCloudStorage {
+  // Tüm aşamalar geçildikten sonra cache atayım, eğer tüm aşamalar geçilmemişse ve haliyle cachelenmemişti logOut atayım adamı
   final users = FirebaseFirestore.instance.collection('users');
 
   static final CreateUserFirebaseCloudStorage _shared = CreateUserFirebaseCloudStorage._sharedInstance();
@@ -30,18 +32,24 @@ class CreateUserFirebaseCloudStorage {
     });
     final fetchedUser = await document.get();
     UserModel user = UserModel(
-      documentId: fetchedUser.id,
+      documentId: fetchedUser.id, // document id
       ownerUsedId: ownerUserId,
       name: fetchedUser['name'] as String,
       surName: fetchedUser['surName'] as String,
       groupNames: fetchedUser['groupNames'] as List<dynamic>,
       gender: fetchedUser['gender'] as bool,
     );
-    LocaleManager.instance.setStringValue(PreferencesKeys.DOCUMENTID, fetchedUser.id);
+    LocaleManager.instance.setStringValue(PreferencesKeys.OWNERUSERID, fetchedUser.id);
     return user;
   }
 
-  // Future<UserModel> updateUser(bool gender,List<dynamic> groupNames,String name,String surnName) async {
-
-  // }
+  Future<UserModel?> getUser({required String documentId}) async {
+    try {
+      final user = await users.doc(LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID)).get();
+      final gercekuser = UserModel.fromSnapShot(user);
+      devtools.log(gercekuser.name);
+      return gercekuser;
+    } catch (e) {}
+    return null;
+  }
 }

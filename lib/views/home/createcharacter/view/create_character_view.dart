@@ -16,6 +16,9 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
   late final TextEditingController _nameController;
   late final TextEditingController _surNameController;
 
+  bool isLoading = false;
+
+  void getUsersData() {}
   @override
   void initState() {
     _nameController = TextEditingController();
@@ -32,43 +35,51 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'CreateCharacter',
-          style: TextStyle(color: Colors.red),
-        ),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(hintText: 'name'),
+    return isLoading
+        ? const CircularProgressIndicator()
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'CreateCharacter',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
-            TextFormField(
-              controller: _surNameController,
-              decoration: const InputDecoration(hintText: 'surName'),
+            body: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(hintText: 'name'),
+                  ),
+                  TextFormField(
+                    controller: _surNameController,
+                    decoration: const InputDecoration(hintText: 'surName'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await CreateUserFirebaseCloudStorage().createUser(
+                          ownerUserId: AuthService.firebase().currentUser!.id,
+                          name: _nameController.text,
+                          surName: _surNameController.text);
+                    },
+                    child: const Text('create user'),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      child: const Text('ad getir')),
+                  Text(LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID)),
+                  ElevatedButton(
+                      onPressed: () async {
+                        CreateUserFirebaseCloudStorage()
+                            .getUser(documentId: LocaleManager.instance.getStringValue(PreferencesKeys.OWNERUSERID));
+                      },
+                      child: const Text('users ne acaba'))
+                ],
+              ),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                await CreateUserFirebaseCloudStorage().createUser(
-                    ownerUserId: AuthService.firebase().currentUser!.id,
-                    name: _nameController.text,
-                    surName: _surNameController.text);
-              },
-              child: const Text('create user'),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: const Text('ad getir')),
-            Text(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

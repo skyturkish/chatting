@@ -18,11 +18,11 @@ class UserModel {
     required this.groupNames,
     required this.gender,
   });
-  UserModel.fromSnapShot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+  UserModel.fromSnapShot(DocumentSnapshot<Map<String, dynamic>> snapshot)
       : documentId = snapshot.id,
-        ownerUsedId = snapshot.data()[FirestoreDatabaseTextFields.ownerUserIdFieldName],
-        name = snapshot.data()['name'] as String,
-        surName = snapshot.data()['surName'] as String,
-        groupNames = snapshot.data()['groupNames'] as List<String>,
-        gender = snapshot.data()['gender'] as bool;
+        ownerUsedId = snapshot[FirestoreDatabaseTextFields.ownerUserIdFieldName],
+        name = snapshot['name'] as String,
+        surName = snapshot['surName'] as String,
+        groupNames = snapshot['groupNames'] as List<dynamic>,
+        gender = snapshot['gender'] as bool;
 }
