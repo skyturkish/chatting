@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
-import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
+import 'package:groupnotes/core/init/navigation/navigation_route.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
@@ -15,8 +15,6 @@ import 'package:groupnotes/views/auth/register/view/register_view.dart';
 import 'package:groupnotes/views/auth/verifyemail/view/VerifyEmailView.dart';
 import 'package:groupnotes/views/home/createcharacter/view/create_character_view.dart';
 import 'package:groupnotes/views/home/home_view.dart';
-import 'package:groupnotes/views/home/notes/create_update_note_view.dart';
-import 'package:groupnotes/views/home/notes/notes_view.dart';
 
 void main() async {
   await _init();
@@ -30,11 +28,7 @@ void main() async {
         create: (context) => AuthBloc(FirebaseAuthProvider()),
         child: const HomePage(),
       ),
-      routes: {
-        NavigationConstants.createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
-        NavigationConstants.personalNotes: (context) => const NotesView(),
-        'home': (context) => const HomeView(),
-      },
+      onGenerateRoute: generateRoute,
     ),
   );
 }
@@ -72,7 +66,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final isBackground = state == AppLifecycleState.paused; // detached dene olmazsa
 
     if (isBackground) {
-      if (LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID) == null) {
+      if (LocaleManager.instance.getStringValue(PreferencesKeys.USERID) == '') {
         await AuthService.firebase().logOut();
       }
     }
@@ -94,7 +88,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         }
       },
       builder: (context, state) {
-        if (LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID) != null) {
+        if (LocaleManager.instance.getStringValue(PreferencesKeys.USERID) != '') {
           return const HomeView();
         } else if (state is AuthStateLoggedIn) {
           return const CreateCharacterView();

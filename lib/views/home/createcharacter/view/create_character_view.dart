@@ -72,13 +72,17 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
                         setState(() {});
                       },
                       child: const Text('ad getir')),
-                  Text(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)),
+                  Text(LocaleManager.instance.getStringValue(PreferencesKeys.USERID)),
                   ElevatedButton(
                       onPressed: () async {
-                        CreateUserFirebaseCloudStorage()
-                            .getUser(documentId: LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID));
+                        await CreateUserFirebaseCloudStorage().denemebrom();
                       },
-                      child: const Text('users ne acaba'))
+                      child: const Text('users ne acaba')),
+                  ElevatedButton(
+                      onPressed: () async {
+                        await CreateUserFirebaseCloudStorage().verilerial();
+                      },
+                      child: const Text('verileri al'))
                 ],
               ),
             ),

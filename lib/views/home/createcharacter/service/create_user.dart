@@ -34,22 +34,47 @@ class CreateUserFirebaseCloudStorage {
     UserModel user = UserModel(
       documentId: fetchedUser.id, // document id
       ownerUsedId: ownerUserId,
-      name: fetchedUser['name'] as String,
-      surName: fetchedUser['surName'] as String,
-      groupNames: fetchedUser['groupNames'] as List<dynamic>,
-      gender: fetchedUser['gender'] as bool,
+      name: fetchedUser[FirestoreDatabaseTextFields.textFieldName] as String,
+      surName: fetchedUser[FirestoreDatabaseTextFields.textFieldSurName] as String,
+      groupNames: fetchedUser[FirestoreDatabaseTextFields.textFieldGroupNames] as List<dynamic>,
+      gender: fetchedUser[FirestoreDatabaseTextFields.textFieldGender] as bool,
     );
-    LocaleManager.instance.setStringValue(PreferencesKeys.DOCUMENTID, fetchedUser.id);
+
+    await LocaleManager.instance.setStringValue(PreferencesKeys.USERID, ownerUserId);
+
     return user;
   }
 
-  Future<UserModel?> getUser({required String documentId}) async {
-    try {
-      final user = await users.doc(LocaleManager.instance.getStringValue(PreferencesKeys.DOCUMENTID)).get();
-      final gercekuser = UserModel.fromSnapShot(user);
-      devtools.log(gercekuser.name);
-      return gercekuser;
-    } catch (e) {}
+  Future<UserModel?> getUserIfExist({required String userId}) async {
+    // devtools.log(users.doc('l7eDi9Byf7mFuAU1G2zR').);
+
+    final user = users.where("user_id", isEqualTo: userId);
+    // devtools.log(user.toString());
     return null;
   }
+
+  Future<void> denemebrom() async {
+    final user = <String, dynamic>{
+      "first": "adana",
+      "last": "kral",
+      "born": 15789,
+      "yeni alan": "obba cubba",
+    };
+
+// Add a new document with a generated ID
+    FirebaseFirestore.instance
+        .collection("deneme")
+        .add(user)
+        .then((DocumentReference doc) => devtools.log('DocumentSnapshot added with ID: ${doc.id}'));
+  }
+
+  Future<void> verilerial() async {
+    await FirebaseFirestore.instance.collection("deneme").get().then((event) {
+      for (var doc in event.docs) {
+        devtools.log("${doc.data()['last']}");
+        devtools.log("${doc.id} => ${doc.data()}");
+      }
+    });
+  }
 }
+// reference data type varmış, onu kullanabilirsin

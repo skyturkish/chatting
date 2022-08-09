@@ -1,1 +1,1 @@
-enum PreferencesKeys { DOCUMENTID }
+enum PreferencesKeys { USERID }
