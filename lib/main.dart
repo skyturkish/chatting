@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         if (LocaleManager.instance.getStringValue(PreferencesKeys.USERID) != '') {
           return const HomeView();
         } else if (state is AuthStateLoggedIn) {
-          return const CreateCharacterView();
+          return const CreateUserView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {
