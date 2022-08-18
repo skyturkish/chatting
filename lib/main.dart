@@ -13,7 +13,7 @@ import 'package:groupnotes/views/auth/forgotpassword/view/forgot_password_view.d
 import 'package:groupnotes/views/auth/login/view/login_view.dart';
 import 'package:groupnotes/views/auth/register/view/register_view.dart';
 import 'package:groupnotes/views/auth/verifyemail/view/VerifyEmailView.dart';
-import 'package:groupnotes/views/home/createcharacter/view/create_character_view.dart';
+import 'package:groupnotes/views/createcharacter/view/create_character_view.dart';
 import 'package:groupnotes/views/home/home_view.dart';
 
 void main() async {

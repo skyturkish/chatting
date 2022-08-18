@@ -5,6 +5,7 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/utilities/dialogs/error_dialog.dart';
+import 'package:groupnotes/views/auth/login/viewmodel/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -13,24 +14,7 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
-  @override
-  void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
+class _LoginViewState extends LoginViewModel {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -51,55 +35,58 @@ class _LoginViewState extends State<LoginView> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Text('Please log in to your account in order to interact with and create notes!'),
-              TextField(
-                controller: _email,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email here',
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const Text('Please log in to your account in order to interact with and create notes!'),
+                TextFormField(
+                  controller: email,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your email here',
+                  ),
                 ),
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your password here',
+                TextFormField(
+                  controller: password,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your password here',
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () async {
-                  final email = _email.text;
-                  final password = _password.text;
-                  // buraya event yolluyoruz, o event kendi içinde stateleri yolluyor, flutterda o statelere göre maindeki olayları yapıyor
-                  context.read<AuthBloc>().add(
-                        AuthEventLogIn(email, password),
-                      );
-                },
-                child: const Text('Login'),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(
-                        const AuthEventForgotPassword(),
-                      );
-                },
-                child: const Text('I forgot my password'),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(
-                        const AuthEventShouldRegister(),
-                      );
-                },
-                child: const Text('Not registered yet? Register here!'),
-              ),
-            ],
+                TextButton(
+                  onPressed: () async {
+                    final emailText = email.text;
+                    final passwordText = password.text;
+                    // buraya event yolluyoruz, o event kendi içinde stateleri yolluyor, flutterda o statelere göre maindeki olayları yapıyor
+                    context.read<AuthBloc>().add(
+                          AuthEventLogIn(emailText, passwordText),
+                        );
+                  },
+                  child: const Text('Login'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventForgotPassword(),
+                        );
+                  },
+                  child: const Text('I forgot my password'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventShouldRegister(),
+                        );
+                  },
+                  child: const Text('Not registered yet? Register here!'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

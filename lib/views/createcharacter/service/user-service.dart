@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show QuerySnapshot;
-import 'package:groupnotes/views/home/createcharacter/service/base-service.dart';
+import 'package:groupnotes/views/createcharacter/service/base-service.dart';
 
 class UserCloudFireStoreService extends CloudFireStoreBaseService {
   //  UserCloudFireStoreService({required super.collectionName}) : super();

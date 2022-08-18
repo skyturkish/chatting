@@ -5,6 +5,7 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/utilities/dialogs/error_dialog.dart';
+import 'package:groupnotes/views/auth/register/viewmodel/register_view_model.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -13,24 +14,7 @@ class RegisterView extends StatefulWidget {
   _RegisterViewState createState() => _RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
-  @override
-  void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
+class _RegisterViewState extends RegisterViewModel {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -58,7 +42,7 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               const Text('Enter your email and password to see your notes!'),
               TextField(
-                controller: _email,
+                controller: email,
                 enableSuggestions: false,
                 autocorrect: false,
                 autofocus: true,
@@ -68,7 +52,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
               TextField(
-                controller: _password,
+                controller: password,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -81,10 +65,10 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     TextButton(
                       onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
+                        final emailText = email.text;
+                        final passwordText = password.text;
                         context.read<AuthBloc>().add(
-                              AuthEventRegister(email, password),
+                              AuthEventRegister(emailText, passwordText),
                             );
                       },
                       child: const Text('Register'),
