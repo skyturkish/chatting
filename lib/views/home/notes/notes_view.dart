@@ -32,10 +32,10 @@ class _NotesViewState extends State<NotesView> {
 
   String adana = '';
 
-  void bursa() async {
-    adana = UserCloudFireStoreService.instance
-        .getUserInformationById(id: AuthService.firebase().currentUser!.id)
-        .toString();
+  Future<void> bursa() async {
+    List<Map<String, dynamic>?> bursa =
+        await UserCloudFireStoreService.instance.getUserInformationById(id: AuthService.firebase().currentUser!.id);
+    adana = bursa.first.toString();
     setState(() {});
   }
 
