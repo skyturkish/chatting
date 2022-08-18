@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show QuerySnapshot;
-import 'package:groupnotes/views/createcharacter/service/base-service.dart';
+import 'package:groupnotes/services/cloudnote/base-service.dart';
 
 class UserCloudFireStoreService extends CloudFireStoreBaseService {
   //  UserCloudFireStoreService({required super.collectionName}) : super();
@@ -13,16 +13,6 @@ class UserCloudFireStoreService extends CloudFireStoreBaseService {
 
   static UserCloudFireStoreService? _instance;
 
-  Future<List<Map<String, dynamic>?>> getAllDocumentsFilterName({required String name}) async {
-    QuerySnapshot documents = await collection.where('name', isEqualTo: name).get();
-    return documents.docs.map(
-      (doc) {
-        final adana = doc.data() as Map<String, dynamic>;
-        return adana;
-      },
-    ).toList();
-  }
-
   Future<List<Map<String, dynamic>?>> getUserInformationById({required String id}) async {
     QuerySnapshot documents = await collection.where('user_id', isEqualTo: id).get(); // bunu da diğer yerden alacaksın
     return documents.docs.map(
@@ -34,7 +24,7 @@ class UserCloudFireStoreService extends CloudFireStoreBaseService {
   }
 
   Future<bool> userIsExist({required String id}) async {
-    QuerySnapshot documents = await collection.where('id', isEqualTo: id).get();
+    QuerySnapshot documents = await collection.where('user_id', isEqualTo: id).get();
     final user = documents.docs.map(
       (doc) {
         final adana = doc.data() as Map<String, dynamic>;

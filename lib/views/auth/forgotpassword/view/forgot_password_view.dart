@@ -5,6 +5,7 @@ import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/utilities/dialogs/error_dialog.dart';
 import 'package:groupnotes/utilities/dialogs/password_reset_email_send_dialog.dart';
+import 'package:groupnotes/views/_product/_widgets/textformfield/custom_text_form_field.dart';
 import 'package:groupnotes/views/auth/forgotpassword/viewmodel/forgot_password_view_model.dart';
 
 class ForgotPasswordView extends StatefulWidget {
@@ -46,15 +47,10 @@ class ForgotPasswordViewState extends ForgotPasswordViewModel {
                 const Text(
                   'If you forgot your password, simply enter your email and we will send you a password',
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  autocorrect: false,
-                  autofocus: true,
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    hintText: 'Your email adres....',
-                  ),
-                ),
+                CustomTextFormField(
+                    controller: controller,
+                    textInputType: TextInputType.emailAddress,
+                    hintText: 'Your email adres....'),
                 TextButton(
                   onPressed: () {
                     final email = controller.text;

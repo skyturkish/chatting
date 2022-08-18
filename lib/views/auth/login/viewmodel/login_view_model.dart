@@ -4,20 +4,20 @@ import 'package:groupnotes/views/auth/login/view/login_view.dart';
 abstract class LoginViewModel extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
 
-  late final TextEditingController email;
-  late final TextEditingController password;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
 
   @override
   void initState() {
-    email = TextEditingController();
-    password = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    email.dispose();
-    password.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 }

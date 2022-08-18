@@ -5,6 +5,7 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/utilities/dialogs/error_dialog.dart';
+import 'package:groupnotes/views/_product/_widgets/textformfield/custom_text_form_field.dart';
 import 'package:groupnotes/views/auth/login/viewmodel/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -40,28 +41,18 @@ class _LoginViewState extends LoginViewModel {
             child: Column(
               children: [
                 const Text('Please log in to your account in order to interact with and create notes!'),
-                TextFormField(
-                  controller: email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter your email here',
-                  ),
-                ),
-                TextFormField(
-                  controller: password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter your password here',
-                  ),
-                ),
+                CustomTextFormField(
+                    controller: emailController,
+                    textInputType: TextInputType.emailAddress,
+                    hintText: 'Enter your email here'),
+                CustomTextFormField(
+                    controller: passwordController,
+                    textInputType: TextInputType.name,
+                    hintText: 'Enter your password here'),
                 TextButton(
                   onPressed: () async {
-                    final emailText = email.text;
-                    final passwordText = password.text;
+                    final emailText = emailController.text;
+                    final passwordText = passwordController.text;
                     // buraya event yolluyoruz, o event kendi içinde stateleri yolluyor, flutterda o statelere göre maindeki olayları yapıyor
                     context.read<AuthBloc>().add(
                           AuthEventLogIn(emailText, passwordText),

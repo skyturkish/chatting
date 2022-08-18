@@ -8,6 +8,7 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/cloudNote/cloud_note.dart';
 import 'package:groupnotes/services/cloudNote/firebase_cloud_storage.dart';
+import 'package:groupnotes/services/cloudnote/user/user-service.dart';
 import 'package:groupnotes/utilities/dialogs/logout_dialog.dart';
 import 'package:groupnotes/views/home/notes/notes_list_view.dart';
 
@@ -25,7 +26,17 @@ class _NotesViewState extends State<NotesView> {
   @override
   void initState() {
     _notesService = FirebaseCloudStorage();
+    bursa();
     super.initState();
+  }
+
+  String adana = '';
+
+  void bursa() async {
+    adana = UserCloudFireStoreService.instance
+        .getUserInformationById(id: AuthService.firebase().currentUser!.id)
+        .toString();
+    setState(() {});
   }
 
   @override
@@ -64,33 +75,40 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body: StreamBuilder(
-        stream: _notesService.allNotes(ownerUsedId: userId),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              if (snapshot.hasData) {
-                final allNotes = snapshot.data as Iterable<CloudNote>;
-                return NotesListView(
-                  notes: allNotes,
-                  onDeleteNote: (note) async {
-                    await _notesService.deleteNote(documentId: note.documentId);
-                  },
-                  onTap: (note) {
-                    Navigator.of(context).pushNamed(
-                      NavigationConstants.createOrUpdateNoteRoute,
-                      arguments: note,
-                    );
-                  },
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: StreamBuilder(
+              stream: _notesService.allNotes(ownerUsedId: userId),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    if (snapshot.hasData) {
+                      final allNotes = snapshot.data as Iterable<CloudNote>;
+                      return NotesListView(
+                        notes: allNotes,
+                        onDeleteNote: (note) async {
+                          await _notesService.deleteNote(documentId: note.documentId);
+                        },
+                        onTap: (note) {
+                          Navigator.of(context).pushNamed(
+                            NavigationConstants.createOrUpdateNoteRoute,
+                            arguments: note,
+                          );
+                        },
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  default:
+                    return const CircularProgressIndicator();
+                }
+              },
+            ),
+          ),
+          Text(adana),
+        ],
       ),
     );
   }
