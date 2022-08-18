@@ -76,5 +76,11 @@ class CreateUserFirebaseCloudStorage {
       }
     });
   }
+
+  Future<void> documentYaz() async {
+    FirebaseFirestore.instance.collection("users").doc("l7eDi9Byf7mFuAU1G2zR").update({
+      "groupNames": FieldValue.arrayRemove(["kralllll bunu sen mi ekledin"])
+    });
+  }
 }
 // reference data type varmış, onu kullanabilirsin

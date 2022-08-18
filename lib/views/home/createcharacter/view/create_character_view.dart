@@ -80,9 +80,9 @@ class CreateCharacterViewState extends State<CreateCharacterView> {
                       child: const Text('users ne acaba')),
                   ElevatedButton(
                       onPressed: () async {
-                        await CreateUserFirebaseCloudStorage().verilerial();
+                        await CreateUserFirebaseCloudStorage().documentYaz();
                       },
-                      child: const Text('verileri al'))
+                      child: const Text('documentYaz'))
                 ],
               ),
             ),
