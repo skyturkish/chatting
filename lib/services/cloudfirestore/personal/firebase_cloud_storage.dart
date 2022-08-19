@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:groupnotes/core/constants/cloudFireStore/cloud_fire_store_constants.dart';
-import 'package:groupnotes/services/cloudNote/cloud_note.dart';
-import 'package:groupnotes/services/cloudNote/cloud_storage_exceptions.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/cloud_note.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/cloud_storage_exceptions.dart';
 
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes'); // burayı abstract yapıp bunu dışarıdan alabilirsin

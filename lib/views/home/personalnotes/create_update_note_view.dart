@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
-import 'package:groupnotes/services/cloudNote/cloud_note.dart';
-import 'package:groupnotes/services/cloudNote/firebase_cloud_storage.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/cloud_note.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/firebase_cloud_storage.dart';
 import 'package:groupnotes/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:groupnotes/utilities/generics/get_arguments.dart';
 import 'package:share_plus/share_plus.dart';

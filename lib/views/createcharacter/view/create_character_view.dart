@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
-import 'package:groupnotes/services/cloudnote/user/user-service.dart';
+import 'package:groupnotes/services/cloudfirestore/user/user-service.dart';
 import 'package:groupnotes/views/_product/_widgets/textformfield/custom_text_form_field.dart';
 import 'package:groupnotes/views/createcharacter/model/user_model.dart';
-import 'package:groupnotes/views/home/notes/notes_view.dart';
+import 'package:groupnotes/views/home/home_view.dart';
 
 class CreateUserView extends StatefulWidget {
   const CreateUserView({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class CreateUserViewState extends State<CreateUserView> {
     return isUserExist == null
         ? const CircularProgressIndicator()
         : isUserExist == true
-            ? const NotesView()
+            ? const HomeView()
             : Scaffold(
                 appBar: AppBar(
                     title: const Text(
@@ -90,7 +90,7 @@ class CreateUserViewState extends State<CreateUserView> {
                             if (isExist == true) {
                               Navigator.pushAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(builder: (context) => const NotesView()),
+                                MaterialPageRoute(builder: (context) => const HomeView()),
                                 removeAllOldRoutes,
                               );
                             }

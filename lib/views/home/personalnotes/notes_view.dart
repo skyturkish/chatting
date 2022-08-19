@@ -6,11 +6,11 @@ import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
-import 'package:groupnotes/services/cloudNote/cloud_note.dart';
-import 'package:groupnotes/services/cloudNote/firebase_cloud_storage.dart';
-import 'package:groupnotes/services/cloudnote/user/user-service.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/cloud_note.dart';
+import 'package:groupnotes/services/cloudfirestore/personal/firebase_cloud_storage.dart';
+import 'package:groupnotes/services/cloudfirestore/user/user-service.dart';
 import 'package:groupnotes/utilities/dialogs/logout_dialog.dart';
-import 'package:groupnotes/views/home/notes/notes_list_view.dart';
+import 'package:groupnotes/views/home/personalnotes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);

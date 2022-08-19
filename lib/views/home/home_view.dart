@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
+import 'package:groupnotes/core/mixin/log_mixin.dart';
+import 'package:groupnotes/services/cloudfirestore/group/group-service.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -8,7 +10,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => HomeViewState();
 }
 
-class HomeViewState extends State<HomeView> {
+class HomeViewState extends State<HomeView> with Logger {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,9 @@ class HomeViewState extends State<HomeView> {
       body: Column(
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(NavigationConstants.groupNotes);
+            },
             child: const Text('GroupNotes'),
           ),
           ElevatedButton(
@@ -28,6 +32,15 @@ class HomeViewState extends State<HomeView> {
               Navigator.of(context).pushNamed(NavigationConstants.personalNotes);
             },
             child: const Text('notes'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final adana = await GroupCloudFireStoreService.instance.isGroupExist(groupName: 'adana');
+              final bursa = await GroupCloudFireStoreService.instance.isGroupExist(groupName: 'bursa');
+              devtoolsLog(adana.toString());
+              devtoolsLog(bursa.toString());
+            },
+            child: const Text('gruba katıl'),
           ),
         ],
       ),

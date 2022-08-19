@@ -48,6 +48,7 @@ class _LoginViewState extends LoginViewModel {
                 CustomTextFormField(
                     controller: passwordController,
                     textInputType: TextInputType.name,
+                    obscureText: true,
                     hintText: 'Enter your password here'),
                 TextButton(
                   onPressed: () async {
