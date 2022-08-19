@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
+import 'package:groupnotes/views/home/group/view/create_new_group_view.dart';
 import 'package:groupnotes/views/home/group/view/group_notes_view.dart';
 import 'package:groupnotes/views/home/home_view.dart';
 import 'package:groupnotes/views/home/personalnotes/create_update_note_view.dart';
@@ -26,6 +27,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const GroupNotesView(),
+      );
+    case NavigationConstants.createGroup:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const CreateNewGroupView(),
       );
 
     default:
