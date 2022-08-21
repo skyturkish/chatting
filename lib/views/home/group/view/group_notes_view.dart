@@ -3,6 +3,7 @@ import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/cloudfirestore/group/group-service.dart';
 import 'package:groupnotes/views/home/group/model/group_model.dart';
+import 'package:groupnotes/views/home/group/view/group_notes_notes_view.dart';
 
 class GroupNotesView extends StatefulWidget {
   const GroupNotesView({Key? key}) : super(key: key);
@@ -32,40 +33,53 @@ class GroupNotesViewState extends State<GroupNotesView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'GroupNotes',
-          style: TextStyle(color: Colors.red),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(NavigationConstants.createGroup);
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: FutureBuilder(
-        future: getGroups(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              return const CircularProgressIndicator();
-            case ConnectionState.done:
-              return Column(
-                children: groups
-                    .map((group) => ListTile(
-                          title: Text(group.groupName),
-                        ))
-                    .toList(),
-              );
-          }
-        },
-      ),
-    );
+    return groups == null
+        ? const CircularProgressIndicator()
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'GroupNotes',
+                style: TextStyle(color: Colors.red),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(NavigationConstants.createGroup);
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ],
+            ),
+            body: FutureBuilder(
+              future: getGroups(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    return const CircularProgressIndicator();
+                  case ConnectionState.done:
+                    return Column(
+                      children: groups
+                          .map((group) => InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GroupNotesNotesView(
+                                              groupName: group.groupName,
+                                            )),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(group.groupName),
+                                ),
+                              ))
+                          .toList(),
+                    );
+                }
+              },
+            ),
+          );
   }
 }
