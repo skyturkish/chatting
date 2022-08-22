@@ -22,10 +22,12 @@ void main() async {
       title: 'Flutter Demo',
       theme: ThemeData.light(),
       home: BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(FirebaseAuthProvider()),
+        create: (context) => AuthBloc(
+          FirebaseAuthProvider(),
+        ),
         child: const HomePage(),
       ),
-      onGenerateRoute: generateRoute,
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
     ),
   );
 }

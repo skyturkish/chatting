@@ -1,4 +1,6 @@
 class FirestoreDatabaseTextFields {
+  //TODO buraya diğerlerni de ekle
+
   static const ownerUserIdFieldName = 'user_id';
   static const textFieldText = 'text';
   static const textFieldMembers = 'members';

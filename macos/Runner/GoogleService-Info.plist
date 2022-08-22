@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>333758703047-nme1gs9hut634nq0p3iqe12o2at0kgc5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.333758703047-nme1gs9hut634nq0p3iqe12o2at0kgc5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDwHYkYYZ-av-g7Qu8FA5VVcX0-eriy85c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>333758703047</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>sky.sky.groupnotes</string>
+	<key>PROJECT_ID</key>
+	<string>firebase-group-sky-notes</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firebase-group-sky-notes.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:333758703047:ios:589adc0e6865008128a5e2</string>
+</dict>
+</plist>

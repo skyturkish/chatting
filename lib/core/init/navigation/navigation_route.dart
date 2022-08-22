@@ -6,42 +6,43 @@ import 'package:groupnotes/views/home/home_view.dart';
 import 'package:groupnotes/views/home/personalnotes/create_update_note_view.dart';
 import 'package:groupnotes/views/home/personalnotes/notes_view.dart';
 
-Route<dynamic> generateRoute(RouteSettings routeSettings) {
-  switch (routeSettings.name) {
-    case NavigationConstants.createOrUpdateNoteRoute:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const CreateUpdateNoteView(),
-      );
-    case NavigationConstants.personalNotes:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const NotesView(),
-      );
-    case NavigationConstants.home:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const HomeView(),
-      );
-    case NavigationConstants.groupNotes:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const GroupNotesView(),
-      );
-    case NavigationConstants.createGroup:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const CreateNewGroupView(),
-      );
+class NavigationRoute {
+  static final NavigationRoute _instance = NavigationRoute._init();
+  static NavigationRoute get instance => _instance;
 
-    default:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const Scaffold(
-          body: Center(
-            child: Text('Screen does not exist!'),
+  NavigationRoute._init();
+
+  Route<dynamic> generateRoute(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
+      case NavigationConstants.createOrUpdateNoteRoute:
+        return normalNavigate(const CreateUpdateNoteView());
+
+      case NavigationConstants.personalNotes:
+        return normalNavigate(const NotesView());
+
+      case NavigationConstants.home:
+        return normalNavigate(const HomeView());
+
+      case NavigationConstants.groupNotes:
+        return normalNavigate(const GroupNotesView());
+      case NavigationConstants.createGroup:
+        return normalNavigate(
+          const CreateNewGroupView(),
+        );
+
+      default:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const Scaffold(
+            body: Center(
+              child: Text('Screen does not exist!'),
+            ),
           ),
-        ),
-      );
+        );
+    }
+  }
+
+  MaterialPageRoute normalNavigate(Widget widget) {
+    return MaterialPageRoute(builder: (context) => widget);
   }
 }

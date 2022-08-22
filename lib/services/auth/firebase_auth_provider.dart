@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:groupnotes/firebase_options.dart';
+import 'package:groupnotes/generated/firebase_options.dart';
 import 'package:groupnotes/services/auth/auth_user.dart';
 import 'package:groupnotes/services/auth/auth_provider.dart';
 

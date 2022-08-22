@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/constants/enums/menu_action.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
+import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
@@ -47,7 +48,7 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(NavigationConstants.createOrUpdateNoteRoute);
+              NavigationService.instance.navigateToPage(path: '/notes/personal/new-note/');
             },
             icon: const Icon(Icons.add),
           ),

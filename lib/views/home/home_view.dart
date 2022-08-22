@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/extensions/context/context_extension.dart';
+import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/core/mixin/log_mixin.dart';
 
 class HomeView extends StatefulWidget {
@@ -36,7 +36,7 @@ class HomeViewState extends State<HomeView> with Logger {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(NavigationConstants.groupNotes);
+                  NavigationService.instance.navigateToPage(path: '/group-notes');
                 },
                 child: Text(
                   'group chat',
@@ -57,7 +57,8 @@ class HomeViewState extends State<HomeView> with Logger {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(NavigationConstants.personalNotes);
+                  NavigationService.instance.navigateToPage(path: '/notes/personal/');
+
                 },
                 child: Text(
                   'personal notes',
@@ -71,21 +72,3 @@ class HomeViewState extends State<HomeView> with Logger {
     );
   }
 }
-
-
-
-// Column(
-//         children: [
-//           ElevatedButton(
-//             onPressed: () {
-//             },
-//             child: const Text('GroupNotes'),
-//           ),
-//           ElevatedButton(
-//             onPressed: () {
-//               Navigator.of(context).pushNamed(NavigationConstants.personalNotes);
-//             },
-//             child: const Text('notes'),
-//           ),
-//         ],
-//       ),
