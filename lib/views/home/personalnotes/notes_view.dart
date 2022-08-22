@@ -79,7 +79,7 @@ class _NotesViewState extends State<NotesView> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: _notesService.allNotes(ownerUsedId: userId),
+              stream: _notesService.allNotes(ownerUserId: userId),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:

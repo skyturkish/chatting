@@ -65,7 +65,7 @@ class GroupNoteCloudFireStoreService extends CloudFireStoreBaseService {
     final fetchedNote = await document.get();
     return GroupNote(
       documentId: fetchedNote.id,
-      ownerUsedId: ownerUserId,
+      ownerUserId: ownerUserId,
       groupName: groupName,
       note: note,
     );

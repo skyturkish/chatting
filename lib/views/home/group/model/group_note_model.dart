@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GroupNote {
   final String groupName;
-  final String ownerUsedId;
+  final String ownerUserId;
   final String documentId;
   final String note;
   GroupNote({
     required this.groupName,
-    required this.ownerUsedId,
+    required this.ownerUserId,
     required this.documentId,
     required this.note,
   });
@@ -18,7 +18,7 @@ class GroupNote {
 
   GroupNote.fromSnapShot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : documentId = snapshot.id,
-        ownerUsedId = snapshot.data()['ownerUsedId'],
+        ownerUserId = snapshot.data()['ownerUserId'],
         groupName = snapshot.data()['groupName'],
         note = snapshot.data()['note'] as String;
 
@@ -26,7 +26,7 @@ class GroupNote {
     final result = <String, dynamic>{};
 
     result.addAll({'groupName': groupName});
-    result.addAll({'ownerUsedId': ownerUsedId});
+    result.addAll({'ownerUserId': ownerUserId});
     result.addAll({'documentId': documentId});
     result.addAll({'note': note});
 
@@ -36,7 +36,7 @@ class GroupNote {
   factory GroupNote.fromMap(Map<String, dynamic> map) {
     return GroupNote(
       groupName: map['groupName'] ?? '',
-      ownerUsedId: map['ownerUsedId'] ?? '',
+      ownerUserId: map['ownerUserId'] ?? '',
       documentId: map['documentId'] ?? '',
       note: map['note'] ?? '',
     );

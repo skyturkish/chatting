@@ -5,16 +5,16 @@ import 'package:groupnotes/core/constants/cloudFireStore/cloud_fire_store_consta
 @immutable
 class CloudNote {
   final String documentId;
-  final String ownerUsedId;
+  final String ownerUserId;
   final String text;
   const CloudNote({
     required this.documentId,
-    required this.ownerUsedId,
+    required this.ownerUserId,
     required this.text,
   });
 
   CloudNote.fromSnapShot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : documentId = snapshot.id,
-        ownerUsedId = snapshot.data()[FirestoreDatabaseTextFields.ownerUserIdFieldName],
+        ownerUserId = snapshot.data()[FirestoreDatabaseTextFields.ownerUserIdFieldName],
         text = snapshot.data()[FirestoreDatabaseTextFields.textFieldText] as String;
 }

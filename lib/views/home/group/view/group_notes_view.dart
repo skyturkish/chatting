@@ -13,7 +13,7 @@ class GroupNotesView extends StatefulWidget {
 }
 
 class GroupNotesViewState extends State<GroupNotesView> {
-  late final List<GroupModel> groups;
+  List<GroupModel>? groups;
   @override
   void initState() {
     super.initState();
@@ -50,35 +50,23 @@ class GroupNotesViewState extends State<GroupNotesView> {
                 ),
               ],
             ),
-            body: FutureBuilder(
-              future: getGroups(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                  case ConnectionState.active:
-                    return const CircularProgressIndicator();
-                  case ConnectionState.done:
-                    return Column(
-                      children: groups
-                          .map((group) => InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => GroupNotesNotesView(
-                                              groupName: group.groupName,
-                                            )),
-                                  );
-                                },
-                                child: ListTile(
-                                  title: Text(group.groupName),
-                                ),
-                              ))
-                          .toList(),
-                    );
-                }
-              },
+            body: Column(
+              children: groups!
+                  .map((group) => InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GroupNotesNotesView(
+                                      groupName: group.groupName,
+                                    )),
+                          );
+                        },
+                        child: ListTile(
+                          title: Text(group.groupName),
+                        ),
+                      ))
+                  .toList(),
             ),
           );
   }
