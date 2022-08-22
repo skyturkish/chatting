@@ -48,6 +48,7 @@ class ForgotPasswordViewState extends ForgotPasswordViewModel {
                   'If you forgot your password, simply enter your email and we will send you a password',
                 ),
                 CustomTextFormField(
+                    labelText: 'email',
                     controller: controller,
                     textInputType: TextInputType.emailAddress,
                     hintText: 'Your email adres....'),

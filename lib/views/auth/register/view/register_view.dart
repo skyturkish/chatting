@@ -5,6 +5,7 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
 import 'package:groupnotes/utilities/dialogs/error_dialog.dart';
+import 'package:groupnotes/views/_product/_widgets/textformfield/custom_text_form_field.dart';
 import 'package:groupnotes/views/auth/register/viewmodel/register_view_model.dart';
 
 class RegisterView extends StatefulWidget {
@@ -41,32 +42,24 @@ class _RegisterViewState extends RegisterViewModel {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Enter your email and password to see your notes!'),
-              TextField(
-                controller: email,
-                enableSuggestions: false,
-                autocorrect: false,
-                autofocus: true,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email here',
-                ),
+              CustomTextFormField(
+                controller: emailController,
+                textInputType: TextInputType.emailAddress,
+                hintText: 'email',
+                autoFocus: true,
               ),
-              TextField(
-                controller: password,
+              CustomTextFormField(
+                controller: passwordController,
                 obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your password here',
-                ),
+                hintText: 'password',
               ),
               Center(
                 child: Column(
                   children: [
                     TextButton(
                       onPressed: () async {
-                        final emailText = email.text;
-                        final passwordText = password.text;
+                        final emailText = emailController.text;
+                        final passwordText = passwordController.text;
                         context.read<AuthBloc>().add(
                               AuthEventRegister(emailText, passwordText),
                             );

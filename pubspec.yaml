@@ -9,51 +9,51 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   # DEFAULT
   cupertino_icons: ^1.0.2
 
-  # FIREBASE
-  firebase_core: ^1.13.1
-  firebase_auth: ^3.3.9
-  cloud_firestore: ^3.1.10
-  firebase_analytics: ^9.1.2
-
-  # CACHE
-  shared_preferences: ^2.0.15
-
-  # NETWORK
-  share_plus: ^4.0.10
-
   # STATE MANAGEMENT
-  provider: ^6.0.3
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+  provider: ^6.0.3
 
-  # ui utilities
-  flutter_launcher_icons: ^0.9.3
-  equatable: ^2.0.3
+  # FIREBASE
+  cloud_firestore: ^3.1.10
+  firebase_analytics: ^9.1.2
+  firebase_auth: ^3.3.9
+  firebase_core: ^1.13.1
 
   # ANIMATIONS
   lottie: ^1.4.1
 
+  # UI
+  flutter_launcher_icons: ^0.9.3
+
+  # NETWORK
+  share_plus: ^4.0.10
+
+  # CACHE
+  shared_preferences: ^2.0.15
+
+  # HELPER
+  equatable: ^2.0.3
+
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   test: ^1.19.5
-  flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/lotties/
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

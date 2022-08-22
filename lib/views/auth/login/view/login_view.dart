@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:groupnotes/core/extensions/context/context_extension.dart';
 import 'package:groupnotes/services/auth/auth_exceptions.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
@@ -40,16 +41,26 @@ class _LoginViewState extends LoginViewModel {
             key: formKey,
             child: Column(
               children: [
-                const Text('Please log in to your account in order to interact with and create notes!'),
-                CustomTextFormField(
+                const Text(
+                  'Please log in to your account in order to interact with and create notes and talk friends',
+                ),
+                Padding(
+                  padding: context.paddingOnlyTopSmall,
+                  child: CustomTextFormField(
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
-                    hintText: 'Enter your email here'),
-                CustomTextFormField(
+                    hintText: 'email',
+                  ),
+                ),
+                Padding(
+                  padding: context.paddingOnlyTopSmall,
+                  child: CustomTextFormField(
                     controller: passwordController,
                     textInputType: TextInputType.name,
                     obscureText: true,
-                    hintText: 'Enter your password here'),
+                    hintText: 'password',
+                  ),
+                ),
                 TextButton(
                   onPressed: () async {
                     final emailText = emailController.text;

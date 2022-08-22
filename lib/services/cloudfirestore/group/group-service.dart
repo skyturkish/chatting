@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart' show QuerySnapshot;
+import 'package:cloud_firestore/cloud_firestore.dart' show FieldValue, QuerySnapshot;
 import 'package:groupnotes/core/mixin/log_mixin.dart';
 import 'package:groupnotes/services/cloudfirestore/base-service.dart';
 import 'package:groupnotes/views/home/group/model/group_model.dart';
@@ -42,28 +42,21 @@ class GroupCloudFireStoreService extends CloudFireStoreBaseService with Logger {
     return groups.map((group) => GroupModel.fromMap(group)).toList();
   }
 
-  // Future<bool> isGroupExist({required String groupName}) async {
-  //   QuerySnapshot documents = await collection.where('groupName', isEqualTo: groupName).get();
-  //   final groups = documents.docs.map(
-  //     (doc) {
-  //       final adana = doc.data() as Map<String, dynamic>;
-  //       return adana;
-  //     },
-  //   ).toList();
-  //   return groups.isEmpty ? false : true;
-  // }
+  Future<List<GroupModel>> getAllGroups() async {
+    QuerySnapshot documents = await collection.get(); // bunu da diğer yerden alacaksın
+    final groups = documents.docs.map(
+      (doc) {
+        final groupInfo = doc.data() as Map<String, dynamic>;
+        return groupInfo;
+      },
+    ).toList();
 
-  // Future<void> joinGroup({required String groupName, required String userId}) async {
-  //   QuerySnapshot documents = await collection.where('groupName', isEqualTo: groupName).get();
-  // }
+    return groups.map((group) => GroupModel.fromMap(group)).toList();
+  }
 
-  // Future<List<Map<String, dynamic>?>> getUserInformationById({required String id}) async {
-  //   QuerySnapshot documents = await collection.where('user_id', isEqualTo: id).get(); // bunu da diğer yerden alacaksın
-  //   return documents.docs.map(
-  //     (doc) {
-  //       final adana = doc.data() as Map<String, dynamic>;
-  //       return adana;
-  //     },
-  //   ).toList();
-  // }
+  Future<void> joinGroup({required String groupName, required String id}) async {
+    collection.doc(groupName).update({
+      "members": FieldValue.arrayUnion([id])
+    });
+  }
 }

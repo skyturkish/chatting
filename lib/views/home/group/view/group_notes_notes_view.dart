@@ -50,37 +50,35 @@ class GroupNotesNotesViewState extends State<GroupNotesNotesView> {
                     if (snapshot.hasData) {
                       final allNotes = snapshot.data as Iterable<GroupNote>;
                       return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: allNotes.length,
-                        itemBuilder: (context, index) {
-                          final note = allNotes.elementAt(index);
-                          // print(notes[index].toString());
-                          return note == null
-                              ? const Text('selam')
-                              : ListTile(
-                                  onTap: () {
-                                    // kendi onTapi
-                                    // onTap(note);
-                                  },
-                                  title: Text(
-                                    note.note,
-                                    maxLines: 1, //bu 3 satır tüm yazılar yerine bir satır gözükmesini
-                                    softWrap: true, // ve satır sonunda ..... olmasını sağlıyor
-                                    overflow: TextOverflow.ellipsis, //
-                                  ),
-                                  trailing: IconButton(
-                                    // her elemanın en solunda bu simge var ve onpressed var
-                                    onPressed: () async {
-                                      // final shouldDelete = await showDeleteDialog(context);
-                                      // if (shouldDelete) {
-                                      //   onDeleteNote(note); // void Function(DatabaseNote note);
-                                      // }
-                                    },
-                                    icon: const Icon(Icons.delete),
-                                  ),
-                                );
-                        },
-                      );
+                          shrinkWrap: true,
+                          itemCount: allNotes.length,
+                          itemBuilder: (context, index) {
+                            final note = allNotes.elementAt(index);
+                            // print(notes[index].toString());
+                            return ListTile(
+                              onTap: () {
+                                // kendi onTapi
+                                // onTap(note);
+                              },
+                              title: Text(
+                                note.note,
+                                maxLines: 1, //bu 3 satır tüm yazılar yerine bir satır gözükmesini
+                                softWrap: true, // ve satır sonunda ..... olmasını sağlıyor
+                                overflow: TextOverflow.ellipsis, //
+                              ),
+                              trailing: IconButton(
+                                // her elemanın en solunda bu simge var ve onpressed var
+                                onPressed: () async {
+                                  // final shouldDelete = await showDeleteDialog(context);
+                                  // if (shouldDelete) {
+                                  //   onDeleteNote(note); // void Function(DatabaseNote note);
+                                  // }
+                                },
+                                icon: Text(
+                                    note.ownerUserId == AuthService.firebase().currentUser!.id ? 'senin' : 'değil'),
+                              ),
+                            );
+                          });
                     } else {
                       return const CircularProgressIndicator();
                     }

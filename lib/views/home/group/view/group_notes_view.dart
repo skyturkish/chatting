@@ -4,6 +4,7 @@ import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/cloudfirestore/group/group-service.dart';
 import 'package:groupnotes/views/home/group/model/group_model.dart';
 import 'package:groupnotes/views/home/group/view/group_notes_notes_view.dart';
+import 'package:lottie/lottie.dart';
 
 class GroupNotesView extends StatefulWidget {
   const GroupNotesView({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class GroupNotesView extends StatefulWidget {
 
 class GroupNotesViewState extends State<GroupNotesView> {
   List<GroupModel>? groups;
+  List<GroupModel>? allGroups;
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +26,7 @@ class GroupNotesViewState extends State<GroupNotesView> {
   Future<void> getGroups() async {
     groups =
         await GroupCloudFireStoreService.instance.getGroupsBelongToUser(id: AuthService.firebase().currentUser!.id);
+    allGroups = await GroupCloudFireStoreService.instance.getAllGroups();
     setState(() {});
   }
 
@@ -34,7 +38,13 @@ class GroupNotesViewState extends State<GroupNotesView> {
   @override
   Widget build(BuildContext context) {
     return groups == null
-        ? const CircularProgressIndicator()
+        ? Scaffold(
+            body: Center(
+              child: Lottie.asset(
+                'assets/lotties/taking_notes.json',
+              ),
+            ),
+          )
         : Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -51,23 +61,51 @@ class GroupNotesViewState extends State<GroupNotesView> {
               ],
             ),
             body: Column(
-              children: groups!
-                  .map((group) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GroupNotesNotesView(
-                                      groupName: group.groupName,
-                                    )),
-                          );
-                        },
-                        child: ListTile(
+              children: [
+                Column(
+                  children: groups!
+                      .map((group) => InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GroupNotesNotesView(
+                                          groupName: group.groupName,
+                                        )),
+                              );
+                            },
+                            child: ListTile(
+                              leading: const Icon(Icons.group),
+                              title: Text(group.groupName),
+                              trailing: Text(
+                                  group.members.contains(AuthService.firebase().currentUser!.id) ? 'aktif' : 'pasif'),
+                            ),
+                          ))
+                      .toList(),
+                ),
+                const Text('adanaaaa'),
+                Column(
+                  children: allGroups!
+                      .map(
+                        (group) => ListTile(
+                          leading: const Icon(Icons.group),
                           title: Text(group.groupName),
+                          trailing: group.members.contains(AuthService.firebase().currentUser!.id)
+                              ? IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
+                              : IconButton(
+                                  onPressed: () {
+                                    GroupCloudFireStoreService.instance.joinGroup(
+                                      groupName: group.groupName,
+                                      id: AuthService.firebase().currentUser!.id,
+                                    );
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(Icons.add)),
                         ),
-                      ))
-                  .toList(),
-            ),
-          );
+                      )
+                      .toList(),
+                ),
+              ],
+            ));
   }
 }

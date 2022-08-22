@@ -4,7 +4,6 @@ import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/core/init/navigation/navigation_route.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
-import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/auth/bloc/auth_state.dart';
@@ -21,9 +20,7 @@ void main() async {
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
         child: const HomePage(),
@@ -58,19 +55,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.detached || state == AppLifecycleState.inactive) return;
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) async {
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.detached || state == AppLifecycleState.inactive) return;
 
-    final isBackground = state == AppLifecycleState.paused; // detached dene olmazsa
+  //   final isBackground = state == AppLifecycleState.paused; // detached dene olmazsa
 
-    if (isBackground) {
-      if (LocaleManager.instance.getStringValue(PreferencesKeys.USERID) == '') {
-        await AuthService.firebase().logOut();
-      }
-    }
-  }
+  //   if (isBackground) {
+  //     if (LocaleManager.instance.getStringValue(PreferencesKeys.USERID) == '') {
+  //       await AuthService.firebase().logOut();
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

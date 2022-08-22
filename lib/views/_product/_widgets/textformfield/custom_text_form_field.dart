@@ -4,14 +4,21 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField(
       {Key? key,
       required this.controller,
-      required this.textInputType,
+      this.textInputType,
       required this.hintText,
-      this.obscureText = false})
+      this.labelText,
+      this.autoFocus,
+      this.obscureText = false,
+      this.enableSuggestions})
       : super(key: key);
   final TextEditingController controller;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   final String hintText;
   final bool obscureText;
+  final String? labelText;
+  final bool? autoFocus;
+  final bool? enableSuggestions;
+
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -19,14 +26,19 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
+    final labelText = widget.labelText ?? widget.hintText;
+
     return TextFormField(
       controller: widget.controller,
-      enableSuggestions: false,
+      enableSuggestions: widget.enableSuggestions ?? false,
       autocorrect: false,
+      autofocus: widget.autoFocus ?? false,
       textInputAction: TextInputAction.next,
       obscureText: widget.obscureText,
-      keyboardType: widget.textInputType,
+      keyboardType: widget.textInputType ?? TextInputType.name,
       decoration: InputDecoration(
+        labelText: labelText,
+        border: const OutlineInputBorder(),
         hintText: widget.hintText,
       ),
     );
