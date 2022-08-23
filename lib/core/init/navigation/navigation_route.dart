@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
+import 'package:groupnotes/main.dart';
 import 'package:groupnotes/views/auth/login/view/login_view.dart';
 import 'package:groupnotes/views/home/group/view/create_new_group_view.dart';
 import 'package:groupnotes/views/home/group/view/group_notes_view.dart';
 import 'package:groupnotes/views/home/home_view.dart';
 import 'package:groupnotes/views/home/personalnotes/create_update_note_view.dart';
 import 'package:groupnotes/views/home/personalnotes/notes_view.dart';
+import 'package:groupnotes/views/home/settings/view/settings_view.dart';
 
 class NavigationRoute {
   static final NavigationRoute _instance = NavigationRoute._init();
@@ -34,6 +36,12 @@ class NavigationRoute {
         return normalNavigate(
           const LoginView(),
         );
+      case NavigationConstants.settings:
+        return normalNavigate(
+          const SettingsView(),
+        );
+      case NavigationConstants.homePage:
+        return normalNavigate(const HomePage());
 
       default:
         return MaterialPageRoute(

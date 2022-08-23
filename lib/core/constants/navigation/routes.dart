@@ -5,4 +5,6 @@ class NavigationConstants {
   static const groupNotes = '/group-notes';
   static const createGroup = '/create-group';
   static const login = '/login';
+  static const settings = '/settings';
+  static const homePage = '/homePage';
 }

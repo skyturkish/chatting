@@ -29,53 +29,60 @@ class HomeViewState extends State<HomeView> with Logger {
         ],
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              height: context.dynamicHeight(0.6),
-              width: context.dynamicWidth(0.4),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color.fromARGB(255, 228, 185, 91), Color.fromARGB(255, 32, 21, 8)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: context.dynamicHeight(0.6),
+                width: context.dynamicWidth(0.4),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color.fromARGB(255, 228, 185, 91), Color.fromARGB(255, 32, 21, 8)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  NavigationService.instance.navigateToPage(path: NavigationConstants.groupNotes);
-                },
-                child: Text(
-                  'group chat',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ),
-            ),
-            Container(
-              height: context.dynamicHeight(0.6),
-              width: context.dynamicWidth(0.4),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color.fromARGB(255, 228, 185, 91), Color.fromARGB(255, 32, 21, 8)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  NavigationService.instance.navigateToPage(path: NavigationConstants.personalNotes);
-                },
-                child: Text(
-                  'personal notes',
-                  style: Theme.of(context).textTheme.headline5,
+                child: TextButton(
+                  onPressed: () {
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.groupNotes);
+                  },
+                  child: Text(
+                    'group chat',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+              Container(
+                height: context.dynamicHeight(0.6),
+                width: context.dynamicWidth(0.4),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color.fromARGB(255, 228, 185, 91), Color.fromARGB(255, 32, 21, 8)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.personalNotes);
+                  },
+                  child: Text(
+                    'personal notes',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ElevatedButton(
+              onPressed: () {
+                NavigationService.instance.navigateToPage(path: NavigationConstants.settings);
+              },
+              child: const Text('settings'))
+        ]),
       ),
     );
   }
