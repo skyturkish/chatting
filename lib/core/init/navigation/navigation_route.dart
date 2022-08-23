@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groupnotes/core/constants/navigation/routes.dart';
+import 'package:groupnotes/views/auth/login/view/login_view.dart';
 import 'package:groupnotes/views/home/group/view/create_new_group_view.dart';
 import 'package:groupnotes/views/home/group/view/group_notes_view.dart';
 import 'package:groupnotes/views/home/home_view.dart';
@@ -28,6 +29,10 @@ class NavigationRoute {
       case NavigationConstants.createGroup:
         return normalNavigate(
           const CreateNewGroupView(),
+        );
+      case NavigationConstants.login:
+        return normalNavigate(
+          const LoginView(),
         );
 
       default:

@@ -4,4 +4,5 @@ class NavigationConstants {
   static const home = '/home';
   static const groupNotes = '/group-notes';
   static const createGroup = '/create-group';
+  static const login = '/login';
 }

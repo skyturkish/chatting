@@ -9,7 +9,6 @@ import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 import 'package:groupnotes/services/cloudfirestore/personal/cloud_note.dart';
 import 'package:groupnotes/services/cloudfirestore/personal/firebase_cloud_storage.dart';
-import 'package:groupnotes/services/cloudfirestore/user/user-service.dart';
 import 'package:groupnotes/utilities/dialogs/logout_dialog.dart';
 import 'package:groupnotes/views/home/personalnotes/notes_list_view.dart';
 
@@ -27,17 +26,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   void initState() {
     _notesService = FirebaseCloudStorage();
-    bursa();
     super.initState();
-  }
-
-  String adana = '';
-
-  Future<void> bursa() async {
-    List<Map<String, dynamic>?> bursa =
-        await UserCloudFireStoreService.instance.getUserInformationById(id: AuthService.firebase().currentUser!.id);
-    adana = bursa.first.toString();
-    setState(() {});
   }
 
   @override
@@ -48,7 +37,7 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           IconButton(
             onPressed: () {
-              NavigationService.instance.navigateToPage(path: '/notes/personal/new-note/');
+              NavigationService.instance.navigateToPage(path: NavigationConstants.createOrUpdateNoteRoute);
             },
             icon: const Icon(Icons.add),
           ),
@@ -108,7 +97,6 @@ class _NotesViewState extends State<NotesView> {
               },
             ),
           ),
-          Text(adana),
         ],
       ),
     );

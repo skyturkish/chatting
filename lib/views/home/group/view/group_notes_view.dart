@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/cloudfirestore/group/group-service.dart';
@@ -54,7 +55,9 @@ class GroupNotesViewState extends State<GroupNotesView> {
               actions: [
                 IconButton(
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(path: '/create-group');
+                    print(AuthService.firebase().currentUser!.id);
+
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.createGroup);
                   },
                   icon: const Icon(Icons.add),
                 ),

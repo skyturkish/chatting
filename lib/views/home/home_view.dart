@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/extensions/context/context_extension.dart';
 import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/core/mixin/log_mixin.dart';
@@ -15,10 +16,18 @@ class HomeViewState extends State<HomeView> with Logger {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-        'Home',
-        style: TextStyle(color: Colors.red),
-      )),
+        title: const Text(
+          'Home',
+          style: TextStyle(color: Colors.red),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                NavigationService.instance.navigateToPageClear(path: NavigationConstants.login);
+              },
+              icon: const Icon(Icons.logout))
+        ],
+      ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -36,7 +45,7 @@ class HomeViewState extends State<HomeView> with Logger {
               ),
               child: TextButton(
                 onPressed: () {
-                  NavigationService.instance.navigateToPage(path: '/group-notes');
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.groupNotes);
                 },
                 child: Text(
                   'group chat',
@@ -57,8 +66,7 @@ class HomeViewState extends State<HomeView> with Logger {
               ),
               child: TextButton(
                 onPressed: () {
-                  NavigationService.instance.navigateToPage(path: '/notes/personal/');
-
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.personalNotes);
                 },
                 child: Text(
                   'personal notes',

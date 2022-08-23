@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/services/auth/auth_service.dart';
 import 'package:groupnotes/services/cloudfirestore/user/user-service.dart';
@@ -85,13 +86,13 @@ class CreateUserViewState extends State<CreateUserView> {
                             );
                             // null koyduk adama seçtirmek zorundasın
 
-                            await UserCloudFireStoreService.instance.addData(data: userInformations.toMap());
+                            UserCloudFireStoreService.instance.createUser(user: userInformations);
 
                             bool isExist = await UserCloudFireStoreService.instance
                                 .userIsExist(id: AuthService.firebase().currentUser!.id);
 
                             if (isExist == true) {
-                              NavigationService.instance.navigateToPageClear(path: '/home');
+                              NavigationService.instance.navigateToPageClear(path: NavigationConstants.home);
                             }
                           },
                           child: const Text('create my account'))

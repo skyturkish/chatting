@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groupnotes/core/constants/enums/locale_keys_enum.dart';
 import 'package:groupnotes/core/init/cache/locale_manager.dart';
 import 'package:groupnotes/core/init/navigation/navigation_route.dart';
+import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/helpers/loading/loading_screen.dart';
 import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:groupnotes/services/auth/bloc/auth_event.dart';
@@ -28,6 +29,7 @@ void main() async {
         child: const HomePage(),
       ),
       onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationService.instance.navigatorKey,
     ),
   );
 }
