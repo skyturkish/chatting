@@ -18,16 +18,24 @@ class NavigationRoute {
   Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case NavigationConstants.createOrUpdateNoteRoute:
-        return normalNavigate(const CreateUpdateNoteView());
+        return normalNavigate(
+          const CreateUpdateNoteView(),
+        );
 
       case NavigationConstants.personalNotes:
-        return normalNavigate(const NotesView());
+        return normalNavigate(
+          const NotesView(),
+        );
 
       case NavigationConstants.home:
-        return normalNavigate(const HomeView());
+        return normalNavigate(
+          const HomeView(),
+        );
 
       case NavigationConstants.groupNotes:
-        return normalNavigate(const GroupNotesView());
+        return normalNavigate(
+          const GroupNotesView(),
+        );
       case NavigationConstants.createGroup:
         return normalNavigate(
           const CreateNewGroupView(),
@@ -41,7 +49,9 @@ class NavigationRoute {
           const SettingsView(),
         );
       case NavigationConstants.homePage:
-        return normalNavigate(const HomePage());
+        return normalNavigate(
+          const HomePage(),
+        );
 
       default:
         return MaterialPageRoute(

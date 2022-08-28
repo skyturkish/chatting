@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 import 'package:groupnotes/core/constants/navigation/routes.dart';
 import 'package:groupnotes/core/extensions/context/context_extension.dart';
 import 'package:groupnotes/core/init/navigation/navigation_service.dart';
 import 'package:groupnotes/core/mixin/log_mixin.dart';
+import 'package:groupnotes/services/auth/bloc/auth_bloc.dart';
+import 'package:groupnotes/services/auth/bloc/auth_event.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -22,10 +25,13 @@ class HomeViewState extends State<HomeView> with Logger {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                NavigationService.instance.navigateToPageClear(path: NavigationConstants.login);
-              },
-              icon: const Icon(Icons.logout))
+            onPressed: () {
+              context.read<AuthBloc>().add(
+                    const AuthEventLogOut(),
+                  );
+            },
+            icon: const Icon(Icons.logout),
+          )
         ],
       ),
       body: Center(

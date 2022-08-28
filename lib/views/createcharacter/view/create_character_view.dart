@@ -41,7 +41,7 @@ class CreateUserViewState extends State<CreateUserView> {
   bool? isUserExist;
 
   Future<void> userExistOrNot() async {
-    bool isExist = await UserCloudFireStoreService.instance.userIsExist(id: AuthService.firebase().currentUser!.id);
+    bool isExist = await UserCloudFireStoreService.instance.isUserExist(userId: AuthService.firebase().currentUser!.id);
 
     isUserExist = isExist;
 
@@ -86,11 +86,12 @@ class CreateUserViewState extends State<CreateUserView> {
                             );
                             // null koyduk adama seçtirmek zorundasın
 
-                            UserCloudFireStoreService.instance.createUser(user: userInformations);
+                            await UserCloudFireStoreService.instance.createUser(user: userInformations);
 
                             bool isExist = await UserCloudFireStoreService.instance
-                                .userIsExist(id: AuthService.firebase().currentUser!.id);
-
+                                .isUserExist(userId: AuthService.firebase().currentUser!.id);
+                            //isUserExist = isExist;
+                            //setState(() {});
                             if (isExist == true) {
                               NavigationService.instance.navigateToPageClear(path: NavigationConstants.home);
                             }
